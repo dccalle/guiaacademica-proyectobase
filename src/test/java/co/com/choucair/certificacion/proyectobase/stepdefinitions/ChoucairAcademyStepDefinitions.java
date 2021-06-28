@@ -1,5 +1,6 @@
 package co.com.choucair.certificacion.proyectobase.stepdefinitions;
 
+import co.com.choucair.certificacion.proyectobase.model.AcademyChoucairData;
 import co.com.choucair.certificacion.proyectobase.questions.Answer;
 import co.com.choucair.certificacion.proyectobase.tasks.Login;
 import co.com.choucair.certificacion.proyectobase.tasks.OpenUp;
@@ -12,6 +13,8 @@ import net.serenitybdd.screenplay.GivenWhenThen;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 
+import java.util.List;
+
 public class ChoucairAcademyStepDefinitions {
     @Before
     public void setStage(){
@@ -19,21 +22,20 @@ public class ChoucairAcademyStepDefinitions {
     }
 
     @Given("^than Brandon wants to learn automation at the academy Choucair$")
-    public void thanBrandonWantsToLearnAutomationAtTheAcademyChoucair() {
-       OnStage.theActorCalled("Brandon").wasAbleTo(OpenUp.thePage(), (Login.OnThePage()));
+    public void thanBrandonWantsToLearnAutomationAtTheAcademyChoucair(List<AcademyChoucairData> academyChoucairData) throws Exception {
+       OnStage.theActorCalled("Brandon").wasAbleTo(OpenUp.thePage(), (Login.OnThePage(academyChoucairData.get(0).getStrUser(), academyChoucairData.get(0).getStrPassword())));
 
     }
 
 
-    @When("^he searchs for the course (.*) on the Choucair Academy plataform$")
-    public void heSearchsForTheCourseRecursosAutomatizacionBancolombiaOnTheChoucairAcademyPlataform(String course) {
-           OnStage.theActorInTheSpotlight().attemptsTo(Search.the(course));
+    @When("^he searchs for the course on the Choucair Academy plataform$")
+    public void heSearchsForTheCourseRecursosAutomatizacionBancolombiaOnTheChoucairAcademyPlataform(List<AcademyChoucairData> academyChoucairData) throws Exception {
+           OnStage.theActorInTheSpotlight().attemptsTo(Search.the(academyChoucairData.get(0).getStrCourse()));
     }
 
-    @Then("^He finds the course called resources (.*)$")
-    public void heFindsTheCourseCalledResourcesRecursosAutomatizacionBancolombia(String question)  {
-        OnStage.theActorInTheSpotlight().should(GivenWhenThen.seeThat(Answer.toThe(question)));
-
+    @Then("^He finds the course called$")
+    public void heFindsTheCourseCalledResourcesRecursosAutomatizacionBancolombia(List<AcademyChoucairData> academyChoucairData) throws Exception  {
+        OnStage.theActorInTheSpotlight().should(GivenWhenThen.seeThat(Answer.toThe(academyChoucairData.get(0).getStrCourse())));
     }
 
 }
