@@ -9,8 +9,8 @@
         |21562732 | Choucair2021*|
       When  he searchs for the course on the Choucair Academy plataform
         |strCourse  |
-        |Recursos Automatización Bancolombia  |
+        |Workshop de Automatización  |
 
     Then  He finds the course called
       |strCourse  |
-      |Recursos Automatización Bancolombia  |
+      |Workshop de Automatización  |
